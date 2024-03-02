@@ -20,7 +20,8 @@ namespace OOP_1
         }
 
         protected Color _PenColor;
-        public Color PenColor {
+        public Color PenColor
+        {
             get { return _PenColor; }
             set
             {

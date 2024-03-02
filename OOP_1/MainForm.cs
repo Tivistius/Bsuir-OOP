@@ -21,22 +21,34 @@ namespace OOP_1
         private void Form1_Load(object sender, EventArgs e)
         {
             list = new FigureList();
+
+            //Line
             Point first = new Point(100, 100);
             Point second = new Point(200, 200);
             Line line = new Line(Color.Blue, 3, first, second);
             list.Add(line);
+
+            //Triangle
             first = new Point(150, 150);
             second = new Point(100, 250);
             Point third = new Point(200, 250);
             Triangle triangle = new Triangle(Color.Green, 2, first, second, third);
             list.Add(triangle);
+
+            //Rectangle
             Rectangle rectangle = new Rectangle(Color.Black, 5, third, 200, 75);
             list.Add(rectangle);
+
+            //Elipse
             third = new Point(300, 300);
             Elipse elipse = new Elipse(Color.Orange, 2, third, 200, 50);
             list.Add(elipse);
+
+            //Circle
             Circle circle = new Circle(Color.Azure, 3, third, 100);
             list.Add(circle);
+
+            //Squere
             second = new Point(100, 300);
             Square square = new Square(Color.Coral, 5, second, 75);
             list.Add(square);

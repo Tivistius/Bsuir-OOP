@@ -59,7 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Figures\Rectangle.cs" />
-    <Compile Include="Figures\Sircle.cs" />
+    <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Square.cs" />
     <Compile Include="Figures\Triangle.cs" />
     <EmbeddedResource Include="MainForm.resx">

@@ -22,10 +22,7 @@ namespace OOP_1
             get { return diameter; }
             set { diameter = value; }
         }
-
-        public Circle(Color color, int thickness, Point center, uint diameter) : base(color, thickness, center, diameter, diameter)
-        {
-            this.diameter = diameter;
-        }
+        public Circle() : base() { }
+        public Circle(Color color, int thickness, Point center, uint diameter) : base(color, thickness, center, diameter, diameter){ }
     }
 }

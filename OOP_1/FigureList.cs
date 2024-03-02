@@ -7,8 +7,6 @@ using System.Drawing;
 
 namespace OOP_1
 {
-
-    //Class that conteins and draw Figures
     class FigureList
     {
         private List<Figure> list;

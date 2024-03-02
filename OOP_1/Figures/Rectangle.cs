@@ -11,18 +11,18 @@ namespace OOP_1
     {
         public Point leftUp { get; set; }
         public int width { get; set; }
-        public int heigth { get; set; }
+        public int height { get; set; }
         public override void Draw(Graphics g)
         {
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(leftUp.X, leftUp.Y, width, heigth);
+            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(leftUp.X, leftUp.Y, width, height);
             g.DrawRectangle(p, rect);
         }
         public Rectangle() : base() { }
-        public Rectangle(Color color, int Thicknes, Point leftUp, int width, int heigth)
+        public Rectangle(Color color, int Thicknes, Point leftUp, int width, int height)
         {
             _PenColor = color;
             _PenThickness = Thicknes;
-            this.heigth = heigth;
+            this.height = height;
             this.width = width;
             this.leftUp = leftUp;
             p = new Pen(color, Thicknes);

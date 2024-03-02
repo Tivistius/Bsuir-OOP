@@ -21,10 +21,7 @@ namespace OOP_1
             get { return size; }
             set { size = value; }
         }
-
-        public Square(Color color, int thickness, Point center, int size) : base(color, thickness, center, size, size)
-        {
-            this.size = size;
-        }
+        public Square() : base() { }
+        public Square(Color color, int thickness, Point center, int size) : base(color, thickness, center, size, size){ }
     }
 }
