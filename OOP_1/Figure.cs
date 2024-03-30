@@ -8,13 +8,12 @@ namespace OOP_1
 {
     public abstract class Figure
     {
-        protected Pen p;
+        public abstract int pointsNumber { get; }
         protected int _PenThickness;
         public int PenThicknes {
             get { return _PenThickness; }
             set
             {
-                p = new Pen(_PenColor, value);
                 _PenThickness = value;
             }
         }
@@ -25,17 +24,16 @@ namespace OOP_1
             get { return _PenColor; }
             set
             {
-                p = new Pen(value, _PenThickness);
                 _PenColor = value;
             }
 
         }
+        public abstract void ChangeState(Point[] points);
         public Figure()
         {
             _PenColor = Color.Black;
             _PenThickness = 1;
-            p = new Pen(_PenColor, _PenThickness);
         }
-        public abstract void Draw(Graphics g);
+        public Figure(Color color, int Thicknes, Point[] points){ }
     }
 }

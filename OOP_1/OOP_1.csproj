@@ -46,9 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DrawClass.cs" />
+    <Compile Include="FigureList.cs" />
     <Compile Include="Figures\Elipse.cs" />
     <Compile Include="Figure.cs" />
-    <Compile Include="FigureList.cs" />
+    <Compile Include="FigureDict.cs" />
+    <Compile Include="Figures\Poligon.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

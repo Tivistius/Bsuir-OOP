@@ -9,13 +9,15 @@ namespace OOP_1
 {
     class Rectangle : Figure
     {
+        public override int pointsNumber { get => 2;}
         public Point leftUp { get; set; }
-        public int width { get; set; }
-        public int height { get; set; }
-        public override void Draw(Graphics g)
+        public virtual int width { get; set; }
+        public virtual int height { get; set; }
+        public override void ChangeState(Point[] points)
         {
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(leftUp.X, leftUp.Y, width, height);
-            g.DrawRectangle(p, rect);
+            leftUp = points[0];
+            width = Math.Abs(points[1].X - points[0].X);
+            height = Math.Abs(points[1].Y - points[0].Y);
         }
         public Rectangle() : base() { }
         public Rectangle(Color color, int Thicknes, Point leftUp, int width, int height)
@@ -25,7 +27,14 @@ namespace OOP_1
             this.height = height;
             this.width = width;
             this.leftUp = leftUp;
-            p = new Pen(color, Thicknes);
+        }
+        public Rectangle(Color color, int Thicknes, Point[] points)
+        {
+            _PenColor = color;
+            _PenThickness = Thicknes;
+            leftUp = points[0];
+            width = Math.Abs(points[1].X-points[0].X);
+            height = Math.Abs(points[1].Y - points[0].Y);
         }
     }
 }

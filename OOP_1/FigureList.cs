@@ -9,25 +9,17 @@ namespace OOP_1
 {
     class FigureList
     {
-        private List<Figure> list;
-        private int size;
-        public FigureList()
+        private List<Figure> _listOfShapes = new List<Figure>();
+        public void Add(Figure fig)
         {
-            list = new List<Figure>();
-            size = 0;
+            _listOfShapes.Add(fig);
         }
-        public int Size()
+
+        public void DrawAll(Graphics g)
         {
-            return size;
-        }
-        public void Add(Figure elem) {
-            list.Add(elem);
-        }
-        public void DrawFigures(Graphics g)
-        {
-            foreach (Figure figure in list)
+            foreach (var fig in _listOfShapes)
             {
-                figure.Draw(g);
+                DrawClass.DrawFigure(fig,g);
             }
         }
     }
