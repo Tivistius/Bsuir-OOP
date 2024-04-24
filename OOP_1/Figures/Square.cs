@@ -27,7 +27,7 @@ namespace OOP_1
         {
             _PenColor = color;
             _PenThickness = Thicknes;
-            leftUp = points[0];
+            leftUp = new Point(Math.Min(points[0].X, points[1].X), Math.Min(points[0].Y, points[1].Y));
             size = Math.Min(Math.Abs(points[1].X - points[0].X), Math.Abs(points[1].Y - points[0].Y));
         }
     }

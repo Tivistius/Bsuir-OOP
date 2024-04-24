@@ -28,30 +28,6 @@ namespace OOP_1
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            //Line
-            Point first = new Point(100, 100);
-            Point second = new Point(200, 200);
-            Line line = new Line(Color.Blue, 3, first, second);
-
-            //Triangle
-            first = new Point(150, 150);
-            second = new Point(100, 250);
-            Point third = new Point(200, 150);
-            Triangle triangle = new Triangle(Color.Green, 2, first, second, third);
-
-            //Rectangle
-            Rectangle rectangle = new Rectangle(Color.Black, 5, third, 200, 75);
-
-            //Elipse
-            third = new Point(300, 300);
-            Elipse elipse = new Elipse(Color.Orange, 2, third, 200, 50);
-
-            //Circle
-            Circle circle = new Circle(Color.Azure, 3, third, 100);
-
-            //Squere
-            second = new Point(100, 300);
-            Square square = new Square(Color.Coral, 5, second, 75);
         }
 
         private void pDrowSpace_Paint(object sender, PaintEventArgs e)
@@ -65,18 +41,18 @@ namespace OOP_1
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnChangeColor_Click(object sender, EventArgs e)
         {
-            colorDialog1.ShowDialog();
-            panel1.BackColor = colorDialog1.Color;
-            activeColor = colorDialog1.Color;
+            colorDialog.ShowDialog();
+            pnColor.BackColor = colorDialog.Color;
+            activeColor = colorDialog.Color;
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void btnAddFigure_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text != "")
+            if (cbListOfFigures.Text != "")
             {
-                activeFigure = Activator.CreateInstance(FigureDict.GetFigureType(comboBox1.Text)) as Figure;
+                activeFigure = Activator.CreateInstance(FigureDict.GetFigureType(cbListOfFigures.Text)) as Figure;
                 pointsCounter = activeFigure.pointsNumber;
                 pointsIndex = 0;
                 points = new Point[pointsCounter];

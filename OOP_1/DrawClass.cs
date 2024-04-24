@@ -11,6 +11,7 @@ namespace OOP_1
     {
         public static void DrawFigure(Figure figure, Graphics g)
         {
+
             Pen pen = new Pen(figure.PenColor, figure.PenThicknes);
             if (figure is Elipse)
             {
