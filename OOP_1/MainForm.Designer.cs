@@ -49,6 +49,8 @@ namespace OOP_1
             this.saveListDialog = new System.Windows.Forms.SaveFileDialog();
             this.btnSaveToFile = new System.Windows.Forms.Button();
             this.btnLoadFromFile = new System.Windows.Forms.Button();
+            this.btnAddPlugin = new System.Windows.Forms.Button();
+            this.openDllDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // pDrowSpace
@@ -166,11 +168,27 @@ namespace OOP_1
             this.btnLoadFromFile.UseVisualStyleBackColor = true;
             this.btnLoadFromFile.Click += new System.EventHandler(this.button2_Click);
             // 
+            // btnAddPlugin
+            // 
+            this.btnAddPlugin.Location = new System.Drawing.Point(690, 448);
+            this.btnAddPlugin.Name = "btnAddPlugin";
+            this.btnAddPlugin.Size = new System.Drawing.Size(98, 23);
+            this.btnAddPlugin.TabIndex = 10;
+            this.btnAddPlugin.Text = "Загрузить dll";
+            this.btnAddPlugin.UseVisualStyleBackColor = true;
+            this.btnAddPlugin.Click += new System.EventHandler(this.btnAddPlugin_Click);
+            // 
+            // openDllDialog
+            // 
+            this.openDllDialog.FileName = "openFileDialog1";
+            this.openDllDialog.Filter = "Файлы dll|*.dll";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 499);
+            this.Controls.Add(this.btnAddPlugin);
             this.Controls.Add(this.btnLoadFromFile);
             this.Controls.Add(this.btnSaveToFile);
             this.Controls.Add(this.btnAddToList);
@@ -203,6 +221,8 @@ namespace OOP_1
         private SaveFileDialog saveListDialog;
         private Button btnSaveToFile;
         private Button btnLoadFromFile;
+        private Button btnAddPlugin;
+        private OpenFileDialog openDllDialog;
     }
 }
 

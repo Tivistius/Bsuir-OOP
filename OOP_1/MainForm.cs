@@ -33,19 +33,21 @@ namespace OOP_1
         {
             InitializeComponent();
         }
-        public void loadFigures(string path)
+        public void loadFigure(string path)
         {
-            foreach (string file in Directory.GetFiles(path, "*Figure.dll"))
+            Assembly assembly = Assembly.LoadFrom(path);
+            Type[] types = assembly.GetTypes();
+            foreach(var type in types)
             {
-                Assembly assembly = Assembly.LoadFrom(file);
-                Type[] types = assembly.GetTypes();
-                List<Type> tempList = types.Where(t => t.IsSubclassOf(typeof(Figure))).ToList();
-                foreach (var type in tempList)
+                Assembly.CreateQualifiedName(type.AssemblyQualifiedName, type.Name);
+            }
+            List<Type> tempList = types.Where(t => t.IsSubclassOf(typeof(Figure))).ToList();
+            foreach (var type in tempList)
+            {
+                if (!type.IsAbstract)
                 {
-                    if (!type.IsAbstract)
-                    {
-                        figureTypes.Add(type);
-                    }
+                    figureTypes.Add(type);
+                    cbListOfFigures.Items.Add((string)type.GetProperty("name").GetValue(null));
                 }
             }
         }
@@ -64,7 +66,6 @@ namespace OOP_1
                     figureTypes.Add(type);
                 }
             }
-            loadFigures(Directory.GetCurrentDirectory());
             string[] names = new string[figureTypes.Count];
             for (int i = 0; i< figureTypes.Count;i++)
             {
@@ -131,6 +132,7 @@ namespace OOP_1
                         listTest.Add(activeFigure);
                         DrawClass.DrawFigure(activeFigure, g);
                         pDrowSpace.Invalidate();
+                        activeFigure = null;
                     }
                 }
             }
@@ -287,6 +289,16 @@ namespace OOP_1
                     MessageBox.Show("Unsuported extention");
                 }
                 pDrowSpace.Invalidate();
+            }
+        }
+
+        private void btnAddPlugin_Click(object sender, EventArgs e)
+        {
+            openDllDialog.FileName = "";
+            openDllDialog.ShowDialog();
+            if (openDllDialog.FileName != "")
+            {
+                loadFigure(openDllDialog.FileName);
             }
         }
     }

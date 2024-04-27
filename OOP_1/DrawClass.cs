@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Reflection;
 
 namespace OOP_1
 {
@@ -11,24 +12,50 @@ namespace OOP_1
     {
         public static void DrawFigure(Figure figure, Graphics g)
         {
-            Brush brush = new SolidBrush(figure.PenColor);
-            Pen pen = new Pen(figure.PenColor, figure.PenThicknes);
-            if (figure is Elipse)
+            string className = figure.GetType().Name;
+            string fullName = figure.GetType().AssemblyQualifiedName;
+            fullName = fullName.Replace(className, "DrawClass");
+            MethodInfo method = Type.GetType(fullName).GetMethod(className, BindingFlags.NonPublic | BindingFlags.Static);
+            if (method == null)
             {
-                g.FillEllipse(brush, (figure as Elipse).center.X - (figure as Elipse).width / 2, (figure as Elipse).center.Y - (figure as Elipse).height / 2, (figure as Elipse).width, (figure as Elipse).height);
+                throw new NullReferenceException();
             }
-            else if (figure is Rectangle)
-            {
-                g.FillRectangle(brush, (figure as Rectangle).leftUp.X, (figure as Rectangle).leftUp.Y, (figure as Rectangle).width, (figure as Rectangle).height);
-            }
-            else
-            {
-                for (int i = 0; i < (figure as Poligon).Points.Length - 1; i++)
-                {
-                    g.DrawLine(pen, (figure as Poligon).Points[i], (figure as Poligon).Points[i + 1]);
-                }
-                g.DrawLine(pen, (figure as OOP_1.Poligon).Points[0], (figure as Poligon).Points[(figure as Poligon).Points.Length - 1]);
-            }
+            method.Invoke(null, new object[] { figure, g });
+        }
+        private static void Rectangle(Rectangle rect, Graphics g)
+        {
+            Brush brush = new SolidBrush(rect.PenColor);
+            g.FillRectangle(brush, rect.leftUp.X, rect.leftUp.Y, rect.width, rect.height);
+        }
+        private static void Circle(Circle circle, Graphics g)
+        {
+            Brush brush = new SolidBrush(circle.PenColor);
+            g.FillEllipse(brush, circle.center.X - circle.width / 2, circle.center.Y - circle.height / 2, circle.width, circle.height);
+        }
+        private static void Poligon(Poligon poligon, Graphics g)
+        {
+            Brush brush = new SolidBrush(poligon.PenColor);
+            g.FillPolygon(brush, poligon.Points);
+        }
+        private static void Triangle(Triangle triag, Graphics g)
+        {
+            Brush brush = new SolidBrush(triag.PenColor);
+            g.FillPolygon(brush, triag.Points);
+        }
+        private static void Elipse(Elipse el, Graphics g)
+        {
+            Brush brush = new SolidBrush(el.PenColor);
+            g.FillEllipse(brush, el.center.X - el.width / 2, el.center.Y - el.height / 2, el.width, el.height);
+        }
+        private static void Line(Line line, Graphics g)
+        {
+            Brush brush = new SolidBrush(line.PenColor);
+            g.FillPolygon(brush, line.Points);
+        }
+        private static void Square(Square square, Graphics g)
+        {
+            Brush brush = new SolidBrush(square.PenColor);
+            g.FillRectangle(brush, square.leftUp.X, square.leftUp.Y, square.width, square.height);
         }
     }
 }

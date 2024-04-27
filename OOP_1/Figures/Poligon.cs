@@ -34,14 +34,15 @@ namespace OOP_1
         {
             int count = 0;
 
-            for (int i = 0, j = _PointsNumber - 1; i < _PointsNumber; j = i++)
+            for (int i = 0, j = _Points.Length - 1; i < _Points.Length; j = i++)
             {
-                if (((Points[i].Y > point.Y) != (Points[j].Y > point.Y)) &&
-                    (point.X < (Points[j].X - _Points[i].X) * (point.Y - _Points[i].Y) / (_Points[j].Y - _Points[i].Y) + _Points[i].X))
+                if (((_Points[i].Y > point.Y) != (_Points[j].Y > point.Y)) &&
+                    (point.X < (_Points[j].X - _Points[i].X) * (point.Y - _Points[i].Y) / (_Points[j].Y - _Points[i].Y) + _Points[i].X))
                 {
                     count++;
                 }
             }
+
             return count % 2 != 0;
         }
         protected PointF FindCenter(PointF[] polygon)

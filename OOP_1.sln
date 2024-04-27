@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.34301.259
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OOP_1", "OOP_1\OOP_1.csproj", "{3C3767F3-3F76-4C89-BDF0-B2946221BE61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pentagon", "..\Pentagon\Pentagon\Pentagon.csproj", "{5FFA2107-EB73-425B-A0AA-87E1972D426E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PentaClass", "..\Pentagon\Pentagon\PentaClass.csproj", "{5FFA2107-EB73-425B-A0AA-87E1972D426E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
