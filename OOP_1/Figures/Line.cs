@@ -7,25 +7,33 @@ using System.Drawing;
 
 namespace OOP_1
 {
-    class Line : OOP_1.Figures.Poligon
+    [Serializable]
+    public class Line : Poligon
     {
-        public override int pointsNumber { get => 2;}
+        public static new string name { get => "Линия"; }
+        public override int PointsNumber { get => 2; }
         public Line() : base() { }
-        public Line(Color color, int Thicknes, Point[] points)
+        public Line(Color color, int Thicknes, PointF[] Points)
         {
             _PenColor = color;
             _PenThickness = Thicknes;
-            this.points = new Point[pointsNumber];
-            this.points[0] = points[0];
-            this.points[1] = points[1];
+            _Points = new PointF[PointsNumber];
+            _Points[0] = Points[0];
+            _Points[1] = Points[1];
         }
-        public Line(Color color, int Thicknes, Point point1, Point point2)
+        public Line(Color color, int Thicknes, PointF Point1, PointF Point2)
         {
             _PenColor = color;
             _PenThickness = Thicknes;
-            points = new Point[pointsNumber];
-            points[0] = point1;
-            points[1] = point2;
+            _Points = new PointF[PointsNumber];
+            _Points[0] = Point1;
+            _Points[1] = Point2;
+        }
+        public override bool IsPointFInFigure(PointF PointF)
+        {
+            float numerator = Math.Abs((_Points[0].Y - _Points[1].Y) * PointF.X - (_Points[0].X - _Points[1].X) * PointF.Y + _Points[0].X * _Points[1].Y - _Points[0].Y * _Points[1].X);
+            float denominator = (float)Math.Sqrt(Math.Pow(_Points[0].Y - _Points[1].Y, 2) + Math.Pow(_Points[0].X - _Points[1].X, 2));
+            return numerator / denominator <= _PenThickness / 2; ;
         }
     }
 }

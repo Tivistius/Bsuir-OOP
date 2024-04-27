@@ -7,27 +7,29 @@ using System.Drawing;
 
 namespace OOP_1
 {
-    class Circle : Elipse
+    [Serializable]
+    public class Circle : Elipse
     {
-        public int diameter { get; set; }
+        public static new string name { get => "Круг"; } 
+        public float diameter { get; set; }
 
-        public override int width
+        public override float width
         {
             get { return diameter; }
             set { diameter = value; }
         }
 
-        public override int height
+        public override float height
         {
             get { return diameter; }
             set { diameter = value; }
         }
         public Circle() : base() { }
-        public Circle(Color color, int thickness, Point center, int diameter) : base(color, thickness, center, diameter, diameter){ }
-        public Circle(Color color, int Thicknes, Point[] points) {
+        public Circle(Color color, int thickness, PointF center, float diameter) : base(color, thickness, center, diameter, diameter){ }
+        public Circle(Color color, int Thicknes, PointF[] points) {
             _PenColor = color;
             _PenThickness = Thicknes;
-            center = new Point(Math.Abs(points[1].X + points[0].X) / 2, Math.Abs(points[1].Y + points[0].Y) / 2);
+            center = new PointF(Math.Abs(points[1].X + points[0].X) / 2, Math.Abs(points[1].Y + points[0].Y) / 2);
             diameter = Math.Min(Math.Abs(points[1].X - points[0].X),Math.Abs(points[1].Y - points[0].Y));
         }
     }

@@ -1,4 +1,4 @@
-﻿
+﻿using System.Windows.Forms;
 namespace OOP_1
 {
     partial class MainForm
@@ -27,15 +27,28 @@ namespace OOP_1
         /// Требуемый метод для поддержки конструктора — не изменяйте 
         /// содержимое этого метода с помощью редактора кода.
         /// </summary>
+        public class DoubleBufferedPanel : Panel
+        {
+            public DoubleBufferedPanel()
+            {
+                DoubleBuffered = true;
+            }
+        }
         private void InitializeComponent()
         {
-            this.pDrowSpace = new System.Windows.Forms.Panel();
+            this.pDrowSpace = new OOP_1.MainForm.DoubleBufferedPanel();
             this.cbListOfFigures = new System.Windows.Forms.ComboBox();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.pnColor = new System.Windows.Forms.Panel();
             this.lbColor = new System.Windows.Forms.Label();
             this.btnChangeColor = new System.Windows.Forms.Button();
             this.btnAddFigure = new System.Windows.Forms.Button();
+            this.lbListInd = new System.Windows.Forms.Label();
+            this.btnAddToList = new System.Windows.Forms.Button();
+            this.openListDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveListDialog = new System.Windows.Forms.SaveFileDialog();
+            this.btnSaveToFile = new System.Windows.Forms.Button();
+            this.btnLoadFromFile = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pDrowSpace
@@ -46,7 +59,9 @@ namespace OOP_1
             this.pDrowSpace.Size = new System.Drawing.Size(626, 409);
             this.pDrowSpace.TabIndex = 0;
             this.pDrowSpace.Paint += new System.Windows.Forms.PaintEventHandler(this.pDrowSpace_Paint);
-            this.pDrowSpace.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pDrowSpace_MouseClick);
+            this.pDrowSpace.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pDrowSpace_MouseDown);
+            this.pDrowSpace.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pDrowSpace_MouseMove);
+            this.pDrowSpace.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pDrowSpace_MouseUp);
             // 
             // cbListOfFigures
             // 
@@ -63,7 +78,6 @@ namespace OOP_1
             this.cbListOfFigures.Name = "cbListOfFigures";
             this.cbListOfFigures.Size = new System.Drawing.Size(121, 21);
             this.cbListOfFigures.TabIndex = 1;
-            this.cbListOfFigures.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // pnColor
             // 
@@ -102,11 +116,65 @@ namespace OOP_1
             this.btnAddFigure.UseVisualStyleBackColor = true;
             this.btnAddFigure.Click += new System.EventHandler(this.btnAddFigure_Click);
             // 
+            // lbListInd
+            // 
+            this.lbListInd.AutoSize = true;
+            this.lbListInd.Location = new System.Drawing.Point(24, 305);
+            this.lbListInd.Name = "lbListInd";
+            this.lbListInd.Size = new System.Drawing.Size(35, 13);
+            this.lbListInd.TabIndex = 6;
+            this.lbListInd.Text = "label1";
+            this.lbListInd.Visible = false;
+            // 
+            // btnAddToList
+            // 
+            this.btnAddToList.Location = new System.Drawing.Point(17, 267);
+            this.btnAddToList.Name = "btnAddToList";
+            this.btnAddToList.Size = new System.Drawing.Size(116, 23);
+            this.btnAddToList.TabIndex = 7;
+            this.btnAddToList.Text = "button1";
+            this.btnAddToList.UseVisualStyleBackColor = true;
+            this.btnAddToList.Visible = false;
+            // 
+            // openListDialog
+            // 
+            this.openListDialog.FileName = "openFileDialog1";
+            this.openListDialog.Filter = "Бинарные файлы|*.bin|Xml файлы|*.xml";
+            // 
+            // saveListDialog
+            // 
+            this.saveListDialog.DefaultExt = "bin";
+            this.saveListDialog.Filter = "Бинарные файлы|*.bin|Xml файлы|*.xml";
+            // 
+            // btnSaveToFile
+            // 
+            this.btnSaveToFile.Location = new System.Drawing.Point(12, 411);
+            this.btnSaveToFile.Name = "btnSaveToFile";
+            this.btnSaveToFile.Size = new System.Drawing.Size(121, 23);
+            this.btnSaveToFile.TabIndex = 8;
+            this.btnSaveToFile.Text = "Созранить в файл";
+            this.btnSaveToFile.UseVisualStyleBackColor = true;
+            this.btnSaveToFile.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnLoadFromFile
+            // 
+            this.btnLoadFromFile.Location = new System.Drawing.Point(12, 448);
+            this.btnLoadFromFile.Name = "btnLoadFromFile";
+            this.btnLoadFromFile.Size = new System.Drawing.Size(121, 23);
+            this.btnLoadFromFile.TabIndex = 9;
+            this.btnLoadFromFile.Text = "Загрузить из файла";
+            this.btnLoadFromFile.UseVisualStyleBackColor = true;
+            this.btnLoadFromFile.Click += new System.EventHandler(this.button2_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 499);
+            this.Controls.Add(this.btnLoadFromFile);
+            this.Controls.Add(this.btnSaveToFile);
+            this.Controls.Add(this.btnAddToList);
+            this.Controls.Add(this.lbListInd);
             this.Controls.Add(this.btnAddFigure);
             this.Controls.Add(this.btnChangeColor);
             this.Controls.Add(this.lbColor);
@@ -122,14 +190,19 @@ namespace OOP_1
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel pDrowSpace;
         private System.Windows.Forms.ComboBox cbListOfFigures;
         private System.Windows.Forms.ColorDialog colorDialog;
         private System.Windows.Forms.Panel pnColor;
         private System.Windows.Forms.Label lbColor;
         private System.Windows.Forms.Button btnChangeColor;
         private System.Windows.Forms.Button btnAddFigure;
+        private System.Windows.Forms.Label lbListInd;
+        private System.Windows.Forms.Button btnAddToList;
+        private DoubleBufferedPanel pDrowSpace;
+        private OpenFileDialog openListDialog;
+        private SaveFileDialog saveListDialog;
+        private Button btnSaveToFile;
+        private Button btnLoadFromFile;
     }
 }
 

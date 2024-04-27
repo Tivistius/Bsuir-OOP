@@ -7,28 +7,30 @@ using System.Drawing;
 
 namespace OOP_1
 {
-    class Square : Rectangle
+    [Serializable]
+    public class Square : Rectangle
     {
-        public int size { get; set; }
-        public override int width
+        public static new string name { get => "Квадрат"; }
+        public float size { get; set; }
+        public override float width
         {
             get { return size; }
             set { size = value; }
         }
 
-        public override int height
+        public override float height
         {
             get { return size; }
             set { size = value; }
         }
         public Square() : base() { }
-        public Square(Color color, int thickness, Point center, int size) : base(color, thickness, center, size, size){ }
-        public Square(Color color, int Thicknes, Point[] points)
+        public Square(Color color, int thickness, PointF center, int size) : base(color, thickness, center, size, size){ }
+        public Square(Color color, int Thicknes, PointF[] Points)
         {
             _PenColor = color;
             _PenThickness = Thicknes;
-            leftUp = new Point(Math.Min(points[0].X, points[1].X), Math.Min(points[0].Y, points[1].Y));
-            size = Math.Min(Math.Abs(points[1].X - points[0].X), Math.Abs(points[1].Y - points[0].Y));
+            leftUp = new PointF(Math.Min(Points[0].X, Points[1].X), Math.Min(Points[0].Y, Points[1].Y));
+            size = Math.Min(Math.Abs(Points[1].X - Points[0].X), Math.Abs(Points[1].Y - Points[0].Y));
         }
     }
 }

@@ -7,21 +7,33 @@ using System.Drawing;
 
 namespace OOP_1
 {
-    class Elipse : Figure
+    [Serializable]
+    public class Elipse : Figure
     {
-        public override int pointsNumber { get => 2; }
-        public Point center { get; set; }
-        public virtual int width { get; set; }
-        public virtual int height { get; set; }
-        
-        public override void ChangeState(Point[] points)
+        public static new string name { get => "Эллипс"; }
+        public override int PointsNumber { get => 2; }
+        public override PointF[] Points
         {
-            center = new Point(Math.Abs(points[1].X - points[0].X) / 2, Math.Abs(points[1].Y - points[0].Y) / 2);
-            width = Math.Abs(points[1].X - points[0].X);
-            height = Math.Abs(points[1].Y - points[0].Y);
+            get
+            {
+                PointF[] res = new PointF[2];
+                res[0] = new PointF(center.X - width/2, center.Y - height/2);
+                res[1] = new PointF(center.X + width/2, center.Y + height/2);
+                return res;
+            }
+        }
+        public PointF center { get; set; }
+        public virtual float width { get; set; }
+        public virtual float height { get; set; }
+        
+        public override void ChangeState(PointF[] Points)
+        {
+            center = new PointF(Math.Abs(Points[1].X + Points[0].X) / 2, Math.Abs(Points[1].Y + Points[0].Y) / 2);
+            width = Math.Abs(Points[1].X - Points[0].X);
+            height = Math.Abs(Points[1].Y - Points[0].Y);
         }
         public Elipse() : base() { }
-        public Elipse(Color color, int Thicknes, Point center, int width, int height)
+        public Elipse(Color color, int Thicknes, PointF center, float width, float height)
         {
             _PenColor = color;
             _PenThickness = Thicknes;
@@ -29,13 +41,24 @@ namespace OOP_1
             this.width = width;
             this.center = center;
         }
-        public Elipse(Color color, int Thicknes, Point[] points)
+        public Elipse(Color color, int Thicknes, PointF[] Points)
         {
             _PenColor = color;
             _PenThickness = Thicknes;
-            center = new Point(Math.Abs(points[1].X + points[0].X)/2, Math.Abs(points[1].Y + points[0].Y)/2);
-            width = Math.Abs(points[1].X - points[0].X);
-            height = Math.Abs(points[1].Y - points[0].Y);
+            center = new PointF(Math.Abs(Points[1].X + Points[0].X)/2, Math.Abs(Points[1].Y + Points[0].Y)/2);
+            width = Math.Abs(Points[1].X - Points[0].X);
+            height = Math.Abs(Points[1].Y - Points[0].Y);
+        }
+
+        public override bool IsPointFInFigure(PointF PointF)
+        {
+            float a = width / 2;
+            float b = height / 2;
+
+            float x = PointF.X - center.X;
+            float y = PointF.Y - center.Y;
+
+            return ((x * x) / (a * a)) + ((y * y) / (b * b)) <= 1;
         }
     }
 }
