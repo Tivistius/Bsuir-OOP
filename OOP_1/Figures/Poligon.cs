@@ -16,7 +16,7 @@ namespace OOP_1
         public override PointF[] Points { get { return _Points; } }
         public override void ChangeState(PointF[] Points)
         {
-            _Points = Points;
+            _Points = SortClockwise(Points);
         }
         public Poligon()
         {

@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/XmlTransformer
+/OOP_1/SerializerFactory.cs
+/OOP_1/Serializer.cs
+/OOP_1/PlaginManager.cs

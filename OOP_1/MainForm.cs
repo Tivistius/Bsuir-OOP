@@ -11,6 +11,8 @@ using System.Reflection;
 using System.IO;
 using System.Xml.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Xsl;
+using System.Xml;
 
 namespace OOP_1
 {
@@ -26,6 +28,8 @@ namespace OOP_1
         private bool activeCreating;
         private int PointsCounter;
         private int PointsIndex;
+        private string stylesTableFile;
+        private bool useXslt = false;
         private Figure activeFigure = null;
         private PointF[] Points;
         private Color activeColor = Color.Black;
@@ -37,10 +41,6 @@ namespace OOP_1
         {
             Assembly assembly = Assembly.LoadFrom(path);
             Type[] types = assembly.GetTypes();
-            foreach(var type in types)
-            {
-                Assembly.CreateQualifiedName(type.AssemblyQualifiedName, type.Name);
-            }
             List<Type> tempList = types.Where(t => t.IsSubclassOf(typeof(Figure))).ToList();
             foreach (var type in tempList)
             {
@@ -51,7 +51,43 @@ namespace OOP_1
                 }
             }
         }
-
+        /*public void XsltSerializerPlagin()
+        {
+            btnLoadStylesTable.Show();
+            lbStylesTable.Show();
+        }*/
+        private void serializeBin(object obj, string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                BinaryFormatter serializer = new BinaryFormatter();
+                serializer.Serialize(fs, obj);
+            }
+        }
+        public void serializeXml(object obj, Type[] figureTypes, string path, string xsltPath)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Create))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(FigureList), figureTypes);
+                serializer.Serialize(fs, obj);
+            }
+        }
+        private object deserializeBin(string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                BinaryFormatter serializer = new BinaryFormatter();
+                return serializer.Deserialize(fs);
+            }
+        }
+        private object deserializeXml(string path, Type[] figureTypes)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(FigureList), figureTypes);
+                return serializer.Deserialize(fs);
+            }
+        }
         private void Form1_Load(object sender, EventArgs e)
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -235,7 +271,7 @@ namespace OOP_1
             IsDragging = false;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void saveToFile()
         {
             saveListDialog.FileName = "";
             saveListDialog.ShowDialog();
@@ -243,24 +279,15 @@ namespace OOP_1
             {
                 if (Path.GetExtension(saveListDialog.FileName) == ".bin")
                 {
-                    using (FileStream fs = new FileStream(saveListDialog.FileName, FileMode.Create))
-                    {
-                        BinaryFormatter serializer = new BinaryFormatter();
-                        serializer.Serialize(fs, listTest);
-                    }
+                    serializeBin(listTest, saveListDialog.FileName);
                 }
                 else if (Path.GetExtension(saveListDialog.FileName) == ".xml")
                 {
-                    using (FileStream fs = new FileStream(saveListDialog.FileName, FileMode.Create))
-                    {
-                        XmlSerializer serializer = new XmlSerializer(typeof(FigureList), figureTypes.ToArray());
-                        serializer.Serialize(fs, listTest);
-                    }
+                    serializeXml(listTest, figureTypes.ToArray(), saveListDialog.FileName, stylesTableFile);
                 }
             }
         }
-
-        private void button2_Click(object sender, EventArgs e)
+        private void loadFromFile()
         {
             openListDialog.FileName = "";
             openListDialog.ShowDialog();
@@ -268,21 +295,13 @@ namespace OOP_1
             {
                 if (Path.GetExtension(openListDialog.FileName) == ".bin")
                 {
-                    using (FileStream fs = new FileStream(openListDialog.FileName, FileMode.Open))
-                    {
-                        BinaryFormatter serializer = new BinaryFormatter();
-                        list = (FigureList)serializer.Deserialize(fs);
-                        listTest = list;
-                    }
+                    list = (FigureList)deserializeBin(openListDialog.FileName);
+                    listTest = list;
                 }
                 else if (Path.GetExtension(openListDialog.FileName) == ".xml")
                 {
-                    using (FileStream fs = new FileStream(openListDialog.FileName, FileMode.Open))
-                    {
-                        XmlSerializer serializer = new XmlSerializer(typeof(FigureList), figureTypes.ToArray());
-                        list = (FigureList)serializer.Deserialize(fs);
-                        listTest = list;
-                    }
+                    list = (FigureList)deserializeXml(openListDialog.FileName, figureTypes.ToArray());
+                    listTest = list;
                 }
                 else
                 {
@@ -290,6 +309,15 @@ namespace OOP_1
                 }
                 pDrowSpace.Invalidate();
             }
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            saveToFile();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            loadFromFile();
         }
 
         private void btnAddPlugin_Click(object sender, EventArgs e)
@@ -300,6 +328,33 @@ namespace OOP_1
             {
                 loadFigure(openDllDialog.FileName);
             }
+        }
+
+        private void btnLoadStylesTable_Click(object sender, EventArgs e)
+        {
+            openXsltFileDialog.FileName = "";
+            openXsltFileDialog.ShowDialog();
+            if (openXsltFileDialog.FileName != "")
+            {
+                stylesTableFile = openXsltFileDialog.FileName;
+                //lbStylesTable.Text = "Таблица стилей загружена";
+                useXslt = true;
+            }
+        }
+
+        private void загрузитьбToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadFromFile();
+        }
+
+        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            saveToFile();
+        }
+
+        private void btnAddToList_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

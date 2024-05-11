@@ -51,6 +51,12 @@ namespace OOP_1
             this.btnLoadFromFile = new System.Windows.Forms.Button();
             this.btnAddPlugin = new System.Windows.Forms.Button();
             this.openDllDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openXsltFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.сохранитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.загрузитьбToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pDrowSpace
@@ -137,6 +143,7 @@ namespace OOP_1
             this.btnAddToList.Text = "button1";
             this.btnAddToList.UseVisualStyleBackColor = true;
             this.btnAddToList.Visible = false;
+            this.btnAddToList.Click += new System.EventHandler(this.btnAddToList_Click);
             // 
             // openListDialog
             // 
@@ -183,6 +190,44 @@ namespace OOP_1
             this.openDllDialog.FileName = "openFileDialog1";
             this.openDllDialog.Filter = "Файлы dll|*.dll";
             // 
+            // openXsltFileDialog
+            // 
+            this.openXsltFileDialog.FileName = "openFileDialog1";
+            this.openXsltFileDialog.Filter = "Таблицы xslt стилей | *.xslt";
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.файлToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
+            this.menuStrip1.TabIndex = 13;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // файлToolStripMenuItem
+            // 
+            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.сохранитьToolStripMenuItem,
+            this.загрузитьбToolStripMenuItem});
+            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
+            this.файлToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.файлToolStripMenuItem.Text = "Файл";
+            // 
+            // сохранитьToolStripMenuItem
+            // 
+            this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.сохранитьToolStripMenuItem.Text = "Сохранить";
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            // 
+            // загрузитьбToolStripMenuItem
+            // 
+            this.загрузитьбToolStripMenuItem.Name = "загрузитьбToolStripMenuItem";
+            this.загрузитьбToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.загрузитьбToolStripMenuItem.Text = "Загрузить";
+            this.загрузитьбToolStripMenuItem.Click += new System.EventHandler(this.загрузитьбToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,9 +244,13 @@ namespace OOP_1
             this.Controls.Add(this.pnColor);
             this.Controls.Add(this.cbListOfFigures);
             this.Controls.Add(this.pDrowSpace);
+            this.Controls.Add(this.menuStrip1);
+            this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,6 +272,11 @@ namespace OOP_1
         private Button btnLoadFromFile;
         private Button btnAddPlugin;
         private OpenFileDialog openDllDialog;
+        private OpenFileDialog openXsltFileDialog;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem файлToolStripMenuItem;
+        private ToolStripMenuItem сохранитьToolStripMenuItem;
+        private ToolStripMenuItem загрузитьбToolStripMenuItem;
     }
 }
 

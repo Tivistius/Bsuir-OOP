@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PlaginManager.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="DrawClass.cs" />
     <Compile Include="FigureList.cs" />
     <Compile Include="Figures\Elipse.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Square.cs" />
     <Compile Include="Figures\Triangle.cs" />
+    <Compile Include="SerializerFactory.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
